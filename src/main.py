@@ -1,13 +1,17 @@
+from pathlib import Path
+
 from shell import Shell
 
 
 def main():
+    repo_dir = Path(__file__).parent.parent.resolve()
+
     shell = Shell()
 
     with shell as s:
         print('--- ls command:')
         print(f'exit code: {s.ls('-la', echo=True)}')
-        #      ^                     ^   ^             ^
+        #      ^                 ^   ^             ^
         # Nested quotes in f-strings allowed since PEP 701 (Python 3.12)
         # https://docs.python.org/3.12/whatsnew/3.12.html#pep-701-syntactic-formalization-of-f-strings
 
@@ -26,7 +30,7 @@ def main():
         print(f'exit code: {s.echo('$TEST! :)', echo=True)}')
 
         # May only escape arguments past the command. Passing the whole command
-        # as one string will pass to the shell verbatim.
+        # as one string passes to the shell verbatim.
         print('\n--- accessing variables:')
         print(f'exit code: {s.run('echo "$TEST"! ":)"', echo=True)}')
 
@@ -35,7 +39,7 @@ def main():
         print(f'exit code: {s.run('echo "|$key|"', echo=True)}')
 
         print('\n--- other script inherits environment:')
-        print(f'exit code: {s.run('src/shim.sh', echo=True)}')
+        print(f'exit code: {s.run(f'{repo_dir}/src/shim.sh', echo=True)}')
 
         print('\n--- unknown command:')
         print(f'exit code: {s.abcdef(echo=True)}\n')

@@ -33,7 +33,7 @@ class Shell:
         return method
 
     def run(self, cmd: str, *args, **kwargs) -> int:
-        cmd_line = f'{cmd} {shlex.join(args)}'
+        cmd_line = f'{cmd} {shlex.join(args)}'.strip()
         return self._execute(cmd_line, **kwargs)
 
     def _execute(self,
@@ -113,7 +113,7 @@ async def _stream_subprocess(cmd: str,
     return process.result()
 
 
-async def _read_stream(stream, receiver: StreamReceiver):
+async def _read_stream(stream: asyncio.StreamReader, receiver: StreamReceiver):
     while True:
         line = await stream.readline()
 
