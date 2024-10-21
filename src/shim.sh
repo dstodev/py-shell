@@ -2,4 +2,5 @@
 
 echo "\$TEST: $TEST"
 
-exit 4
+TEST2='welcome'
+export TEST2

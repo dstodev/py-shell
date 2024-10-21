@@ -41,6 +41,10 @@ def main():
         print('\n--- other script inherits environment:')
         print(f'exit code: {s.run(f'{repo_dir}/src/shim.sh', echo=True)}')
 
+        print('\n--- sourcing another script:')
+        print(f'exit code: {s.source(f'{repo_dir}/src/shim.sh', echo=True)}')
+        print(f'exit code: {s.run(f'echo "from shim: $TEST2"', echo=True)}')
+
         print('\n--- unknown command:')
         print(f'exit code: {s.abcdef(echo=True)}\n')
 

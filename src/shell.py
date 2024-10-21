@@ -89,7 +89,7 @@ async def _stream_subprocess(cmd: str,
                                                   stdout=asyncio.subprocess.PIPE,
                                                   stderr=asyncio.subprocess.PIPE,
                                                   env=env)
-    shell.stdin.write(cmd.encode() + b'\n')
+    shell.stdin.write(f'{cmd}\n'.encode())
     shell.stdin.write(b'__rc=$?\n')
     shell.stdin.write(f'printenv > {env_file}\n'.encode())
     shell.stdin.write(b'(exit $__rc)\n')
